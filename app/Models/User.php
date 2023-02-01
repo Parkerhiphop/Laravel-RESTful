@@ -19,6 +19,10 @@ class User extends Authenticatable
     const ADMIN_USER = 'true';
     const REGULAR_USER = 'false';
 
+    // "Buyer" and "Seller" are going to inherate this value for the protected table attribute
+    // without it: 'sellers' doesn't exist
+    protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *

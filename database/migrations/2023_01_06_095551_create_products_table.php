@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('quantity')->unsigned();
             $table->string('status')->default(Product::UNAVAILABLE_PRODUCT);
             $table->string('image');
-            $table->integer('seller_id')->unsigned();
+            $table->unsignedBigInteger('seller_id');
             $table->timestamps();
 
             // using the `Table` name, not the `Model` name
