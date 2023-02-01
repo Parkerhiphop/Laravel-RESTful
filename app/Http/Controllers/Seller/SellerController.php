@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Seller;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SellerController extends Controller
 {
@@ -14,28 +15,9 @@ class SellerController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $sellers = Seller::has('products')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return response(['data' => $sellers], 200);
     }
 
     /**
@@ -46,40 +28,12 @@ class SellerController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        try {
+            $sellers = Seller::has('products')->findOrFail($id);
+        } catch (ModelNotFoundException) {
+            return response(['error' => 'Seller not found'], 404);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return response(['data' => $sellers], 200);
     }
 }
